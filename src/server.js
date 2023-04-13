@@ -61,5 +61,24 @@ app.post("/books/addbook", async (req, res) => {
       }
 } )
 
+app.put("/books/updatebookauthor", async (req, res) => {
+  const updateBook = await Book.updateOne ({ 
+      title: req.body.title,
+  },{author: req.body.author})
+
+  const successSendResponse = {
+      message: "Updated successfully",
+      book: updateBook
+  }
+  // response.send(successSendResponse)
+  res.status(200).json(successSendResponse)
+})
+
+
+
+
+
+
+
 app.listen(5001, () => console.log("server is listening on 5001"))
 
