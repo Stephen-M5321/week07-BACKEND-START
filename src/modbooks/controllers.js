@@ -1,19 +1,49 @@
 const Book = require("./model");
 
+//get all books or one book by title
+
 const getAllBooks = async (req, res) => {
   try {
-    const books = await Book.find({});
+    const { title } = req.query;
+
+    let books;
+
+    if (title) {
+      books = await Book.find({ title });
+    } else {
+      books = await Book.find({});
+    }
 
     const successResponse = {
       message: "success",
       books: books,
     };
 
-    res.status(200).json(successResponse)
+    res.status(200).json(successResponse);
   } catch (error) {
     console.log(error);
   }
 };
+
+// E.G  http://localhost:5001/books/getallbooks?title=The%history%of%flipflops
+
+
+
+
+// const getAllBooks = async (req, res) => {
+//   try {
+//     const books = await Book.find({});
+
+//     const successResponse = {
+//       message: "success",
+//       books: books,
+//     };
+
+//     res.status(200).json(successResponse)
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 const addBook = async (req, res) => {
   try {
@@ -96,9 +126,15 @@ const deleteBook = async (req, res) => {
     response.status(200).json(errorSendResponse);
   }
 };
+// NEEDS LOOKING AT AGAIN ===============???>>>>>>>>>>>>>>
+
+
+
+
 
 
 module.exports = {
+
   getAllBooks,
   addBook,
   updateBook,
